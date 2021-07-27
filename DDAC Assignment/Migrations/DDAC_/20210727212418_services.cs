@@ -15,19 +15,18 @@ namespace DDAC_Assignment.Migrations.DDAC_
                     servicesTitle = table.Column<string>(maxLength: 100, nullable: false),
                     serviceDescription = table.Column<string>(maxLength: 100, nullable: true),
                     serviceMediaURL = table.Column<string>(nullable: true),
-                    serviceSize = table.Column<string>(maxLength: 100, nullable: false),
-                    serviceLimit = table.Column<int>(nullable: false)
+                    serviceSize = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_WasteServices", x => x.ID);
-                });
+                }
+            );
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            //migrationBuilder.DropTable(
-            //    name: "WasteServices");
+
         }
     }
 }

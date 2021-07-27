@@ -30,13 +30,14 @@
             </div>
             <div class="form-group">
                 <label asp-for="serviceSize" class="control-label"></label>
-                <input asp-for="serviceSize" class="form-control" />
+                <!-- <input asp-for="serviceSize" class="form-control" /> -->
+                <select class="form-control" id="serviceSize" name="serviceSize">
+                    <option value="">Select Size</option>
+                    <option value="small">Small</option>
+                    <option value="medium">Medium</option>
+                    <option value="large">Large</option>
+                </select>
                 <span asp-validation-for="serviceSize" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="serviceLimit" class="control-label"></label>
-                <input asp-for="serviceLimit" class="form-control" />
-                <span asp-validation-for="serviceLimit" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />

@@ -25,9 +25,6 @@
             <th>
                 @Html.DisplayNameFor(model => model.serviceSize)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.serviceLimit)
-            </th>
             <th></th>
         </tr>
     </thead>
@@ -41,18 +38,15 @@
                 @Html.DisplayFor(modelItem => item.serviceDescription)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.serviceMediaURL)
+                <img src="@Html.DisplayFor(modelItem => item.serviceMediaURL)" height="100"/>
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.serviceSize)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.serviceLimit)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.ID">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.ID">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.ID">Delete</a>
+                <!-- <a asp-action="Details" asp-route-id="@item.ID" class="btn btn-outline-primary mr-2">View</a> -->
+                <a asp-action="Edit" asp-route-id="@item.ID" class="btn btn-outline-warning mr-2">Edit</a>
+                <a asp-action="Delete" asp-route-id="@item.ID" class="btn btn-outline-danger">Delete</a>
             </td>
         </tr>
 }

@@ -6,3 +6,14 @@
     padding: 3px;
 }
 /* END - Topbar */
+
+/* General */
+.table td, .table th {
+    vertical-align: middle;
+}
+/* END - General */
+
+
+
+/* Custom */
+
