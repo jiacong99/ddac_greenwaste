@@ -4,14 +4,16 @@ using DDAC_Assignment.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DDAC_Assignment.Migrations.DDAC_
 {
     [DbContext(typeof(DDAC_Context))]
-    partial class DDAC_ContextModelSnapshot : ModelSnapshot
+    [Migration("20210727072327_createBookingTable")]
+    partial class createBookingTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -26,25 +28,14 @@ namespace DDAC_Assignment.Migrations.DDAC_
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<DateTime>("BookingDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("BookingLocation")
-                        .IsRequired()
+                    b.Property<string>("BookingName")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal>("BookingPrice")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<string>("BookingStatus")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("BookingType")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("DriverID")
-                        .HasColumnType("int");
 
                     b.HasKey("BookingID");
 

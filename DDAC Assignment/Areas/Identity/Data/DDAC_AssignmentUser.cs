@@ -22,5 +22,7 @@ namespace DDAC_Assignment.Areas.Identity.Data
 
         [PersonalData]
         public string User_Address { get; set; }
+
+        public string User_Role { get; set; }
     }
 }
