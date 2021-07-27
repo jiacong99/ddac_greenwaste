@@ -10,6 +10,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using DDAC_Assignment.Data;
+using Microsoft.AspNetCore.Identity;
+using DDAC_Assignment.Areas.Identity.Data;
 
 namespace DDAC_Assignment
 {
@@ -33,7 +35,7 @@ namespace DDAC_Assignment
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, UserManager<DDAC_AssignmentUser> userManager)
         {
             if (env.IsDevelopment())
             {
@@ -49,6 +51,7 @@ namespace DDAC_Assignment
             app.UseStaticFiles();
 
             app.UseRouting();
+            MyIdentityDataInitializer.SeedData(userManager);
             app.UseAuthentication();
             app.UseAuthorization();
 

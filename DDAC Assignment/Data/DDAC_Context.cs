@@ -15,5 +15,7 @@ namespace DDAC_Assignment.Data
         }
 
         public DbSet<DDAC_Assignment.Models.WasteServices> WasteServices { get; set; }
+
+        public DbSet<DDAC_Assignment.Models.Booking> Booking { get; set; }
     }
 }
