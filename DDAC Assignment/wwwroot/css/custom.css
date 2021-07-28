@@ -1,4 +1,10 @@
 ﻿/* Topbar */
+.header-item {
+    box-shadow: none !important;
+    color: #555b6d;
+    border: 0;
+    border-radius: 0;
+}
 .header-profile-user {
     height: 36px;
     width: 36px;
