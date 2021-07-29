@@ -4,14 +4,16 @@ using DDAC_Assignment.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DDAC_Assignment.Migrations.DDAC_
 {
     [DbContext(typeof(DDAC_Context))]
-    partial class DDAC_ContextModelSnapshot : ModelSnapshot
+    [Migration("20210729075518_data_context_v2")]
+    partial class data_context_v2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

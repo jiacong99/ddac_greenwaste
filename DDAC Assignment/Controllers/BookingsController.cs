@@ -46,6 +46,11 @@ namespace DDAC_Assignment.Controllers
         // GET: Bookings/Create
         public IActionResult Create()
         {
+            List<WasteServices> bookingtypelist = new List<WasteServices>();
+            bookingtypelist = (from product in _context.WasteServices select product).ToList();
+            bookingtypelist.Insert(0, new WasteServices { ID = 0, servicesTitle = "Select Booking Type" });
+
+            ViewBag.bookingtypelist = bookingtypelist;
             return View();
         }
 
@@ -54,7 +59,7 @@ namespace DDAC_Assignment.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("BookingID,BookingType,BookingPrice,BookingDate,BookingLocation,BookingStatus,DriverID")] Booking booking)
+        public async Task<IActionResult> Create([Bind("BookingID,BookingType,BookingPrice,BookingDate,BookingLocation,BookingStatus,DriverName")] Booking booking)
         {
             if (ModelState.IsValid)
             {
@@ -62,6 +67,12 @@ namespace DDAC_Assignment.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+
+            List<WasteServices> bookingtypelist = new List<WasteServices>();
+            bookingtypelist = (from product in _context.WasteServices select product).ToList();
+            bookingtypelist.Insert(0, new WasteServices { ID = 0, servicesTitle = "Select Booking Type" });
+
+            ViewBag.bookingtypelist = bookingtypelist;
             return View(booking);
         }
 
@@ -78,6 +89,12 @@ namespace DDAC_Assignment.Controllers
             {
                 return NotFound();
             }
+
+            List<WasteServices> bookingtypelist = new List<WasteServices>();
+            bookingtypelist = (from product in _context.WasteServices select product).ToList();
+            bookingtypelist.Insert(0, new WasteServices { ID = 0, servicesTitle = "Select Booking Type" });
+
+            ViewBag.bookingtypelist = bookingtypelist;
             return View(booking);
         }
 
@@ -86,11 +103,16 @@ namespace DDAC_Assignment.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("BookingID,BookingType,BookingPrice,BookingDate,BookingLocation,BookingStatus,DriverID")] Booking booking)
+        public async Task<IActionResult> Edit(int id, [Bind("BookingID,BookingType,BookingPrice,BookingDate,BookingLocation,BookingStatus,DriverName")] Booking booking)
         {
             if (id != booking.BookingID)
             {
                 return NotFound();
+            }
+
+            if(booking.BookingType == "0")
+            {
+                ModelState.AddModelError("", "Please Select Service Type");
             }
 
             if (ModelState.IsValid)
@@ -113,6 +135,12 @@ namespace DDAC_Assignment.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
+
+            List<WasteServices> bookingtypelist = new List<WasteServices>();
+            bookingtypelist = (from product in _context.WasteServices select product).ToList();
+            bookingtypelist.Insert(0, new WasteServices { ID = 0, servicesTitle = "Select Booking Type" });
+
+            ViewBag.bookingtypelist = bookingtypelist;
             return View(booking);
         }
 

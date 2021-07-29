@@ -27,11 +27,14 @@ namespace DDAC_Assignment
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddMvc();
             services.AddControllersWithViews();
             services.AddRazorPages();
 
-            services.AddDbContext<DDAC_Context>(options =>
-                    options.UseSqlServer(Configuration.GetConnectionString("DDAC_Context")));
+            //services.AddDbContext<DDAC_Context>(options =>
+            //        options.UseSqlServer(Configuration.GetConnectionString("DDAC_Context")));
+            var conn = Configuration.GetConnectionString("DDAC_Context");
+            services.AddDbContext<DDAC_Context>(options => options.UseSqlServer(conn));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

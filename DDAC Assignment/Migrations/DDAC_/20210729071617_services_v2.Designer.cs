@@ -4,14 +4,16 @@ using DDAC_Assignment.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DDAC_Assignment.Migrations.DDAC_
 {
     [DbContext(typeof(DDAC_Context))]
-    partial class DDAC_ContextModelSnapshot : ModelSnapshot
+    [Migration("20210729071617_services_v2")]
+    partial class services_v2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -43,8 +45,8 @@ namespace DDAC_Assignment.Migrations.DDAC_
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("DriverName")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("DriverID")
+                        .HasColumnType("int");
 
                     b.HasKey("BookingID");
 
@@ -58,8 +60,9 @@ namespace DDAC_Assignment.Migrations.DDAC_
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<decimal>("serviceAmount")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<float?>("serviceAmount")
+                        .IsRequired()
+                        .HasColumnType("real");
 
                     b.Property<string>("serviceDescription")
                         .HasColumnType("nvarchar(100)")

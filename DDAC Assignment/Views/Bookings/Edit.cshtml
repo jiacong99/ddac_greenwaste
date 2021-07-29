@@ -2,6 +2,7 @@
 
 @{
     ViewData["Title"] = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <h1>Edit</h1>
@@ -15,7 +16,8 @@
             <input type="hidden" asp-for="BookingID" />
             <div class="form-group">
                 <label asp-for="BookingType" class="control-label"></label>
-                <input asp-for="BookingType" class="form-control" />
+                <!--<input asp-for="BookingType" class="form-control" />-->
+                <select asp-for="BookingType" class="form-control" asp-items="@(new SelectList(@ViewBag.bookingtypelist, "servicesTitle", "servicesTitle"))"></select>
                 <span asp-validation-for="BookingType" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -39,9 +41,9 @@
                 <span asp-validation-for="BookingStatus" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="DriverID" class="control-label"></label>
-                <input asp-for="DriverID" class="form-control" />
-                <span asp-validation-for="DriverID" class="text-danger"></span>
+                <label asp-for="DriverName" class="control-label"></label>
+                <input asp-for="DriverName" class="form-control" />
+                <span asp-validation-for="DriverName" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />

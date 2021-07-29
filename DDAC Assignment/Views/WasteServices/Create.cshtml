@@ -3,6 +3,11 @@
 @{
     ViewData["Title"] = "Create";
     Layout = "~/Views/Shared/_Layout.cshtml";
+
+    List<SelectListItem> serviceSize = new List<SelectListItem>();
+    serviceSize.Add(new SelectListItem() { Text = "Small", Value = "samll" });
+    serviceSize.Add(new SelectListItem() { Text = "Medium", Value = "medium" });
+    serviceSize.Add(new SelectListItem() { Text = "Large", Value = "large" });
 }
 
 <h1>Create</h1>
@@ -37,6 +42,7 @@
                     <option value="medium">Medium</option>
                     <option value="large">Large</option>
                 </select>
+                @*@Html.DropDownList("SizeList", serviceSize, "Select Size")*@
                 <span asp-validation-for="serviceSize" class="text-danger"></span>
             </div>
             <div class="form-group">

@@ -9,13 +9,14 @@ namespace DDAC_Assignment.Data
 {
     public class DDAC_Context : DbContext
     {
-        public DDAC_Context (DbContextOptions<DDAC_Context> options)
-            : base(options)
+        public DDAC_Context (DbContextOptions<DDAC_Context> options) : base(options)
         {
+
         }
 
         public DbSet<DDAC_Assignment.Models.WasteServices> WasteServices { get; set; }
 
         public DbSet<DDAC_Assignment.Models.Booking> Booking { get; set; }
+
     }
 }
