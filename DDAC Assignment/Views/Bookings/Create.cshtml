@@ -16,12 +16,12 @@
             <div class="form-group">
                 <label asp-for="BookingType" class="control-label"></label>
                 <!--<input asp-for="BookingType" class="form-control" />-->
-                <select asp-for="BookingType" class="form-control" asp-items="@(new SelectList(@ViewBag.bookingtypelist, "servicesTitle", "servicesTitle"))"></select>
+                <select asp-for="BookingType" id="booking_type" class="form-control" asp-items="@(new SelectList(@ViewBag.bookingtypelist, "servicesTitle", "servicesTitle"))"></select>
                 <span asp-validation-for="BookingType" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="BookingPrice" class="control-label"></label>
-                <input asp-for="BookingPrice" class="form-control" />
+                <input asp-for="BookingPrice" id="booking_price" class="form-control" readonly/>
                 <span asp-validation-for="BookingPrice" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -40,11 +40,6 @@
                 <span asp-validation-for="BookingStatus" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="DriverName" class="control-label"></label>
-                <input asp-for="DriverName" class="form-control" />
-                <span asp-validation-for="DriverName" class="text-danger"></span>
-            </div>
-            <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>
         </form>
@@ -58,3 +53,29 @@
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }
+
+<script>
+    $(function () {
+        $("#booking_type").on("change", function () {
+            let name = $(this).val();
+            $.ajax({
+                url: '/bookings/ajaxGetPriceByService',
+                dataType: "json",
+                type: 'GET',
+                data: {
+                    name: name
+                },
+                success: function (e) {
+
+                    console.log(e);
+                    let price = parseFloat(e.serviceAmount).toFixed(2);
+                    $("#booking_price").val(price);
+                },
+                error: function (e) {
+                    console.log(e);
+                    $("#booking_type").prop('selectedIndex', 0);
+                }
+            });
+        });
+    });
+</script>

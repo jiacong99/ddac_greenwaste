@@ -60,9 +60,9 @@
                     @Html.DisplayFor(modelItem => item.DriverName)
                 </td>
                 <td>
-                    <a asp-action="Edit" asp-route-id="@item.BookingID">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@item.BookingID">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@item.BookingID">Delete</a>
+                    <!--<a asp-action="Details" asp-route-id="@item.BookingID" class="btn btn-outline-primary mr-2">View</a>-->
+                    <a asp-action="Edit" asp-route-id="@item.BookingID" class="btn btn-outline-warning mr-2">Edit</a>
+                    <a asp-action="Delete" asp-route-id="@item.BookingID" class="btn btn-outline-danger">Delete</a>
                 </td>
             </tr>
         }

@@ -13,6 +13,7 @@
 <table class="table">
     <thead>
         <tr>
+            <th>#</th>
             <th>
                 @Html.DisplayNameFor(model => model.servicesTitle)
             </th>
@@ -25,30 +26,37 @@
             <th>
                 @Html.DisplayNameFor(model => model.serviceSize)
             </th>
-            <th></th>
+            <th>Price</th>
+            <th>Action</th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.servicesTitle)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.serviceDescription)
-            </td>
-            <td>
-                <img src="@Html.DisplayFor(modelItem => item.serviceMediaURL)" height="100"/>
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.serviceSize)
-            </td>
-            <td>
-                <!-- <a asp-action="Details" asp-route-id="@item.ID" class="btn btn-outline-primary mr-2">View</a> -->
-                <a asp-action="Edit" asp-route-id="@item.ID" class="btn btn-outline-warning mr-2">Edit</a>
-                <a asp-action="Delete" asp-route-id="@item.ID" class="btn btn-outline-danger">Delete</a>
-            </td>
-        </tr>
-}
+        @{ int rowNo = 0; }
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@{rowNo++;} @rowNo</td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.servicesTitle)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.serviceDescription)
+                </td>
+                <td>
+                    <img src="@Html.DisplayFor(modelItem => item.serviceMediaURL)" height="100" />
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.serviceSize)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.serviceAmount)
+                </td>
+                <td>
+                    <!-- <a asp-action="Details" asp-route-id="@item.ID" class="btn btn-outline-primary mr-2">View</a> -->
+                    <a asp-action="Edit" asp-route-id="@item.ID" class="btn btn-outline-warning mr-2">Edit</a>
+                    <a asp-action="Delete" asp-route-id="@item.ID" class="btn btn-outline-danger">Delete</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>

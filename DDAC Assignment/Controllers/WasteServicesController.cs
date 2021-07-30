@@ -54,7 +54,7 @@ namespace DDAC_Assignment.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ID,servicesTitle,serviceDescription,serviceMediaURL,serviceSize")] WasteServices wasteServices)
+        public async Task<IActionResult> Create([Bind("ID,servicesTitle,serviceDescription,serviceAmount,serviceMediaURL,serviceSize")] WasteServices wasteServices)
         {
             if (ModelState.IsValid)
             {
@@ -86,7 +86,7 @@ namespace DDAC_Assignment.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ID,servicesTitle,serviceDescription,serviceMediaURL,serviceSize")] WasteServices wasteServices)
+        public async Task<IActionResult> Edit(int id, [Bind("ID,servicesTitle,serviceDescription,serviceAmount,serviceMediaURL,serviceSize")] WasteServices wasteServices)
         {
             if (id != wasteServices.ID)
             {

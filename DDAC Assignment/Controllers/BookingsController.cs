@@ -177,5 +177,10 @@ namespace DDAC_Assignment.Controllers
         {
             return _context.Booking.Any(e => e.BookingID == id);
         }
+
+        public JsonResult ajaxGetPriceByService(String name)
+        {
+            return Json(_context.WasteServices.Where(e => e.servicesTitle == name).FirstOrDefault());
+        }
     }
 }
