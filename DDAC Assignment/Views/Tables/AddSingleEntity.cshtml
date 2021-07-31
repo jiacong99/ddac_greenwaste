@@ -1,0 +1,18 @@
+﻿
+@{
+    ViewData["Title"] = "AddSingleEntity";
+}
+
+<h1>Add Single Entity</h1>
+
+<p>
+    The insertion of data to the table of @ViewBag.tablename is 
+    @(ViewBag.result == 204? "successfully!" : "failed! Maybe similar data already exists")
+</p>
+
+<p>
+    @if (ViewBag.Message != string.Empty)
+            {
+                @ViewBag.Message
+            }
+</p>

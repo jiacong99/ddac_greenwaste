@@ -75,7 +75,6 @@ namespace DDAC_Assignment.Areas.Identity.Pages.Account
             public DateTime DOB { get; set; }
 
             [Display(Name = "Your Home Address")]
-            [RegularExpression(@"^[A-Z]+[a-z]*$", ErrorMessage = "Only capital letter and alphabert")]
             public string Address { get; set; }
         }
 

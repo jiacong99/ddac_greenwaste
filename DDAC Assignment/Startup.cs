@@ -12,6 +12,10 @@ using Microsoft.EntityFrameworkCore;
 using DDAC_Assignment.Data;
 using Microsoft.AspNetCore.Identity;
 using DDAC_Assignment.Areas.Identity.Data;
+using Microsoft.Extensions.Azure;
+using Azure.Storage.Queues;
+using Azure.Storage.Blobs;
+using Azure.Core.Extensions;
 
 namespace DDAC_Assignment
 {
@@ -35,6 +39,11 @@ namespace DDAC_Assignment
             //        options.UseSqlServer(Configuration.GetConnectionString("DDAC_Context")));
             var conn = Configuration.GetConnectionString("DDAC_Context");
             services.AddDbContext<DDAC_Context>(options => options.UseSqlServer(conn));
+            services.AddAzureClients(builder =>
+            {
+                builder.AddBlobServiceClient(Configuration["ddacstorageimageconnection:blob"], preferMsi: true);
+                builder.AddQueueServiceClient(Configuration["ddacstorageimageconnection:queue"], preferMsi: true);
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -65,6 +74,31 @@ namespace DDAC_Assignment
                     pattern: "{controller=Home}/{action=Index}/{id?}");
                 endpoints.MapRazorPages();
             });
+        }
+    }
+    internal static class StartupExtensions
+    {
+        public static IAzureClientBuilder<BlobServiceClient, BlobClientOptions> AddBlobServiceClient(this AzureClientFactoryBuilder builder, string serviceUriOrConnectionString, bool preferMsi)
+        {
+            if (preferMsi && Uri.TryCreate(serviceUriOrConnectionString, UriKind.Absolute, out Uri serviceUri))
+            {
+                return builder.AddBlobServiceClient(serviceUri);
+            }
+            else
+            {
+                return builder.AddBlobServiceClient(serviceUriOrConnectionString);
+            }
+        }
+        public static IAzureClientBuilder<QueueServiceClient, QueueClientOptions> AddQueueServiceClient(this AzureClientFactoryBuilder builder, string serviceUriOrConnectionString, bool preferMsi)
+        {
+            if (preferMsi && Uri.TryCreate(serviceUriOrConnectionString, UriKind.Absolute, out Uri serviceUri))
+            {
+                return builder.AddQueueServiceClient(serviceUri);
+            }
+            else
+            {
+                return builder.AddQueueServiceClient(serviceUriOrConnectionString);
+            }
         }
     }
 }

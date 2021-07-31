@@ -7,6 +7,12 @@
     "mssql2": {
       "type": "mssql.local",
       "connectionId": "ConnectionStrings:DDAC_Context"
+    },
+    "storage1": {
+      "resourceId": "/subscriptions/[parameters('subscriptionId')]/resourcegroups/[parameters('resourceGroupName')]/providers/Microsoft.Storage/storageAccounts/ddacstorageimage",
+      "type": "storage.azure",
+      "connectionId": "ddacstorageimageconnection",
+      "secretStore": null
     }
   }
 }

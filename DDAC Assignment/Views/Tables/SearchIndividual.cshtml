@@ -1,0 +1,27 @@
+﻿
+@{
+    ViewData["Title"] = "SearchIndividual";
+}
+
+<h1>Search Driver Information: </h1>
+
+<center>
+    <form method="get" action="getsingleentity">
+        <p>
+            Enter First Name: 
+            <input type="text" value="" name="PartitionName" required/>
+        </p>
+        <p>
+            Enter Last Name:
+            <input type="text" value="" name="RowName" required/>
+        </p>
+        <p><input type="submit" value="search" name="submit" /></p>
+    </form>
+</center>
+
+
+@if(ViewBag.msg != null)
+            {
+                <script>alert("@ViewBag.msg");</script>
+            }
+

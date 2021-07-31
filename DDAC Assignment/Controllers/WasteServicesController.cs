@@ -7,11 +7,37 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using DDAC_Assignment.Data;
 using DDAC_Assignment.Models;
+using Microsoft.WindowsAzure.Storage.Blob;
+using Microsoft.Extensions.Configuration;
+using System.IO;
+using Microsoft.WindowsAzure.Storage;
+using Microsoft.AspNetCore.Http;
 
 namespace DDAC_Assignment.Controllers
 {
     public class WasteServicesController : Controller
     {
+        private CloudBlobContainer getBlobContainerInformation()
+        {
+            var builder = new ConfigurationBuilder()
+                .SetBasePath(Directory.GetCurrentDirectory())
+                .AddJsonFile("appsettings.json");
+            IConfiguration configure = builder.Build();
+
+            CloudStorageAccount accountdetails = CloudStorageAccount.Parse(configure["ConnectionStrings:blobstorageconnection"]);
+            CloudBlobClient clientagent = accountdetails.CreateCloudBlobClient();
+            CloudBlobContainer container = clientagent.GetContainerReference("container");
+            return container;
+        }
+
+        public IActionResult CreateContainer()
+        {
+            CloudBlobContainer container = getBlobContainerInformation();
+
+            ViewBag.result = container.CreateIfNotExistsAsync().Result;
+            ViewBag.ContainerName = container.Name;
+            return View();
+        }
         private readonly DDAC_Context _context;
 
         public WasteServicesController(DDAC_Context context)
@@ -54,13 +80,19 @@ namespace DDAC_Assignment.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ID,servicesTitle,serviceDescription,serviceMediaURL,serviceSize")] WasteServices wasteServices)
+        public async Task<IActionResult> Create([Bind("ID,servicesTitle,serviceDescription,serviceMediaURL,serviceSize")] WasteServices wasteServices, List<IFormFile> serviceImg)
+        //public async Task<IActionResult> Create(FormCollection form, Http)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(wasteServices);
-                await _context.SaveChangesAsync();
+                BlobsController controller = new BlobsController();
+                String mediaURL= controller.UploadFileFromForm(serviceImg);
+                wasteServices.serviceMediaURL = "https://ddacstorageimage.blob.core.windows.net/container/"+mediaURL ;
+                 _context.Add(wasteServices);
+                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
+                        
+
             }
             return View(wasteServices);
         }
@@ -149,5 +181,34 @@ namespace DDAC_Assignment.Controllers
         {
             return _context.WasteServices.Any(e => e.ID == id);
         }
+
+        
+
+       //[HttpPost]
+       // private string UploadFileFromForm(WasteService model)
+       // {
+       //     string imageUrl = null;
+
+       //     if (model.serviceImg != null)
+       //     {
+       //         CloudBlobContainer container = getBlobContainerInformation();
+
+       //         CloudBlockBlob blobitem = null;
+
+       //         try
+       //         {
+       //             blobitem = container.GetBlockBlobReference(model.serviceImg.FileName);
+       //            var stream = model.serviceImg.OpenReadStream();
+       //             blobitem.UploadFromStreamAsync(stream).Wait();
+
+       //         }
+       //         catch (Exception ex)
+       //         {
+
+       //         }
+       //     }
+       //     return imageUrl;
+            
+       // }
     }
 }

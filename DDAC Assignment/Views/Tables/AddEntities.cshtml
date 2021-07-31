@@ -1,0 +1,36 @@
+﻿@model IEnumerable<Microsoft.WindowsAzure.Storage.Table.TableResult> 
+@{
+    ViewData["Title"] = "AddEntities";
+}
+
+<h1>AddEntities</h1>
+
+@if (ViewBag.Message != null)
+{
+    <script>alert("@ViewBag.Message");</script>
+}
+else
+            {
+                <table border="1">
+                    <tr>
+                        <td>Driver First Name</td>
+                        <td>Driver Last Name</td>
+                        <td>Driver Address</td>
+                        <td>Driver Email</td>
+                        <td>Driver Phone Number</td>
+                        <td>Http Status Code</td>
+                    </tr>
+                    @foreach(var result in Model)
+                    {
+                        var displayresult = result.Result as DDAC_Assignment.Models.DriverEntity;
+                <tr>
+                    <td>@displayresult.PartitionKey</td>
+                    <td>@displayresult.RowKey</td>
+                    <td>@displayresult.Address</td>
+                    <td>@displayresult.Email</td>
+                    <td>@displayresult.PhoneNumber</td>
+                    <td>@result.HttpStatusCode </td>
+                </tr>
+                    }
+                </table>
+            }
